@@ -5,15 +5,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+
 /**
  * Created by LucasRezende on 08/08/2017.
  */
 
 public abstract class Assets {
 
+    //public static final AnnotationAssetManager manager = new AnnotationAssetManager();
     public static final AssetManager manager = new AssetManager();
 
-
+    //@Asset(Texture.class)
     public static final String ball = "assets/img/ball.png";
     public static final String someImage = "assets/img/someImage.png";
     public static final String japanischeFlagge = "assets/img/japanische Flagge.jpg";
@@ -27,7 +29,11 @@ public abstract class Assets {
     public static final String tankCannon = "assets/img/tankCannon.png";
     public static final String testImage = "assets/img/testImage.png";
     public static final String rockImg = "assets/img/rock.jpg";
+
+    //@Asset(PolygonRegion.class)
     public static final String rock = "assets/img/rock.psh";
+
+    //@Asset(Skin.class)
     public static final String uiskin = "android/assets/assets_utils/uiskin.json";
     public static final String map1 = "assets/maps/map.tmx";
     public static final String isometricMap1 = "assets/maps/isometric.tmx";
