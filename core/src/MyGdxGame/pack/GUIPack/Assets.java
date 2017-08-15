@@ -34,7 +34,9 @@ public abstract class Assets {
     public static final String rock = "assets/img/rock.psh";
 
     //@Asset(Skin.class)
-    public static final String uiskin = "android/assets/assets_utils/uiskin.json";
+    public static final String uiskin = "assets/assets_utils/uiskin.json";
+
+
     public static final String map1 = "assets/maps/map.tmx";
     public static final String isometricMap1 = "assets/maps/isometric.tmx";
     public static final String testMap1 = "assets/maps/test.tmx";
