@@ -12,9 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
-import MyGdxGame.pack.GUIPack.Assets;
+
 import MyGdxGame.pack.UtilsPack.Constants;
 
 
@@ -27,21 +28,25 @@ public class Level extends ScreenAdapter {
 
 
     private Stage stage = new Stage();
-    public final List<String> inventory;
-    public final List<String> sell;
-    public final Table table;
-    public final Skin skin;
+    private final List<String> inventory;
+    private final List<String> sell;
+    private final Table table;
+    private final Skin skin;
 
     public Level(){ //resolver o problema da skin
-        skin = Assets.manager.get(Assets.uiskin, Skin.class);
-        //skin = new Skin(Gdx.files.internal(Constants.uiskin), new TextureAtlas(Constants.TEXTURE_ATLAS_UI));
-        //new Skin(Gdx.files.internal(Constants.SKIN_GAME_UI),new TextureAtlas(Constants.TEXTURE_ATLAS_UI));
-        //Assets.manager.get(Assets.uiskin, Skin.class);
+        skin = new Skin(Gdx.files.internal(Constants.UISKIN));
         stage.setDebugAll(true);
+        Gdx.input.setInputProcessor(stage);
+
+
+        //TextButton btn = new TextButton("menu", skin);
+        //btn.setPosition(100,100);
+        //stage.addActor(btn);
 
         inventory = new List<String>(skin);
         sell = new List<String>(skin);
         inventory.setItems("Axe", "Fuel", "Helmet", "Flux Capacitor", "Shoes", "Hammer", "Trash Can", "The Hitchhiker's Guide To The Galaxy", "Cucumber");
+        sell.setItems("Sword");
 
         table = new Table(skin);
         table.setFillParent(true);
@@ -62,7 +67,7 @@ public class Level extends ScreenAdapter {
             public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
                 String item = inventory.getSelected(); // pega o item escolhido do inventario
                 payload.setObject(item);  //   add no objeto de carga
-                inventory.getItems().removeIndex(inventory.getSelectedIndex());  // remove o objeto da lista de inventario, isto e desnecessario para nosso projeto
+                //inventory.getItems().removeIndex(inventory.getSelectedIndex());  // remove o objeto da lista de inventario, isto e desnecessario para nosso projeto
                 payload.setDragActor(new Label(item, skin));
                 payload.setInvalidDragActor(new Label(item + " (\"No thanks!\")", skin));
                 payload.setValidDragActor(new Label(item + " (\"I'll buy this!\")", skin));
@@ -71,8 +76,8 @@ public class Level extends ScreenAdapter {
 
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer, DragAndDrop.Payload payload, DragAndDrop.Target target) {
-                if(target == null)
-                    inventory.getItems().add((String) payload.getObject()); // caso o objeto seja solto em area invalida retorna para lista de inventario
+               // if(target == null)
+                    //inventory.getItems().add((String) payload.getObject()); // caso o objeto seja solto em area invalida retorna para lista de inventario
             }
         });
         //criaçao de um alvo para o ator de arrastar
@@ -87,6 +92,38 @@ public class Level extends ScreenAdapter {
                 sell.getItems().add((String) payload.getObject());
             }
         });
+
+//----------------------------------------------------------------------------------------------------------
+        DragAndDrop dnd2 = new DragAndDrop();
+        dnd2.addSource(new DragAndDrop.Source(sell) {  //a origem de onde e possivel arrastar
+            final DragAndDrop.Payload payload1 = new DragAndDrop.Payload();  // cria o objeto carga para conter o item arrastado
+            @Override
+            public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
+                String item = sell.getSelected(); // pega o item escolhido do inventario
+                payload1.setObject(item);  //   add no objeto de carga
+                sell.getItems().removeIndex(sell.getSelectedIndex());  // remove o objeto da lista de inventario, isto e desnecessario para nosso projeto
+                payload1.setDragActor(new Label(item, skin));
+                return payload1;
+            }
+
+            @Override
+            public void dragStop(InputEvent event, float x, float y, int pointer, DragAndDrop.Payload payload, DragAndDrop.Target target) {
+                 if(target == null)
+                     sell.getItems().add((String) payload.getObject()); // caso o objeto seja solto em area invalida retorna para lista de inventario
+            }
+        });
+        dnd2.addTarget(new DragAndDrop.Target(inventory) {
+            @Override
+            public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+                return !"Sword".equals(payload.getObject());
+            }
+
+            @Override
+            public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+                //sell.getItems().removeIndex(sell.getSelectedIndex());
+            }
+        });
+
     }
 
     @Override

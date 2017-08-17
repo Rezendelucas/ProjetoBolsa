@@ -16,14 +16,14 @@ public class DesktopLauncher {
 			settings.maxWidth = 1024;
 			settings.maxHeight = 1024;
 			settings.debug = drawDebugOutline;
-			TexturePacker2.process(settings,"android/assets/assets_raw","android/assets/assets_atlas","GameTexture.pack");
-			TexturePacker2.process(settings,"android/assets/assets_raw_ui","android/assets/assets_atlas_ui","GameUI.pack");
+			TexturePacker2.process(settings,"assets_raw","assets_atlas","GameTexture.pack");
+			TexturePacker2.process(settings,"assets_raw_ui","assets_atlas_ui","GameUI.pack");
 		}
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "GameMain";
 		config.useGL30 = false;
-		config.width  = 1280;
-		config.height = 720;
+		config.width  = 800;
+		config.height = 480;
 		new LwjglApplication(new GameMain(), config);
 	}
 }

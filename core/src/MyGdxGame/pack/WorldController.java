@@ -134,9 +134,9 @@ public class WorldController extends InputAdapter {
         Vector3 ponto = new Vector3(screenX, screenY, 0);
         //.camera.unproject(ponto);
 
-        Gdx.app.debug(TAG,"Toque Tela :" + ponto.x + "/" + ponto.y  );
-        Gdx.app.debug(TAG,"Centro Camera : " + camera.position.x + " / " + camera.position.y);
-        Gdx.app.debug(TAG,"Toque gambs: clique em " + (ponto.x-400) + " / " + (ponto.y-230));
+       // Gdx.app.debug(TAG,"Toque Tela :" + ponto.x + "/" + ponto.y  );
+       // Gdx.app.debug(TAG,"Centro Camera : " + camera.position.x + " / " + camera.position.y);
+       // Gdx.app.debug(TAG,"Toque gambs: clique em " + (ponto.x-400) + " / " + (ponto.y-230));
         return super.touchDown(screenX, screenY, pointer, button);
     }
 
