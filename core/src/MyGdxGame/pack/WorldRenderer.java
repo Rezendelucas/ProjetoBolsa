@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.Disposable;
 
+import MyGdxGame.pack.LevelPack.GuiScreen;
 import MyGdxGame.pack.ModelsPack.Assets;
 import MyGdxGame.pack.UtilsPack.Constants;
 
@@ -18,6 +19,7 @@ public class WorldRenderer implements Disposable {
 
     private OrthographicCamera camera;
     private OrthographicCamera cameraGUI;
+    private GuiScreen gui;
     private SpriteBatch batch;
     private WorldController worldController;
     private Box2DDebugRenderer b2debugRenderer;
@@ -37,12 +39,13 @@ public class WorldRenderer implements Disposable {
         cameraGUI.position.set(0,0,0);
         cameraGUI.setToOrtho(true);
         cameraGUI.update();
+        gui = new GuiScreen();
         b2debugRenderer = new Box2DDebugRenderer();
     }
 
     public void render(float delta){
         renderWorld(batch, delta);
-        renderGui(batch);
+        renderGui(batch,delta);
     }
 
     private void renderWorld(SpriteBatch batch, float delta){
@@ -64,10 +67,11 @@ public class WorldRenderer implements Disposable {
         cameraGUI.update();
     }
 
-    private void renderGui (SpriteBatch batch) {
+    private void renderGui (SpriteBatch batch, float delta) {
         batch.setProjectionMatrix(cameraGUI.combined);
         batch.begin();
         //renderGuiScore(batch);
+        gui.render(delta);
         renderGuiFpsCounter(batch);
         batch.end();
     }
