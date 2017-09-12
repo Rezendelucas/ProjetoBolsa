@@ -74,4 +74,92 @@ public abstract class AbstractGameObject {
     }
 
     public abstract void render(SpriteBatch batch);
+
+    public Body getBody() {
+        return body;
+    }
+
+    public void setBody(Body body) {
+        this.body = body;
+    }
+
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
+    public Vector2 getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(Vector2 dimension) {
+        this.dimension = dimension;
+    }
+
+    public Vector2 getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(Vector2 origin) {
+        this.origin = origin;
+    }
+
+    public Vector2 getScale() {
+        return scale;
+    }
+
+    public void setScale(Vector2 scale) {
+        this.scale = scale;
+    }
+
+    public float getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
+    }
+
+    public Vector2 getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(Vector2 velocity) {
+        this.velocity = velocity;
+    }
+
+    public Vector2 getTerminalVelocity() {
+        return terminalVelocity;
+    }
+
+    public void setTerminalVelocity(Vector2 terminalVelocity) {
+        this.terminalVelocity = terminalVelocity;
+    }
+
+    public Vector2 getFriction() {
+        return friction;
+    }
+
+    public void setFriction(Vector2 friction) {
+        this.friction = friction;
+    }
+
+    public Vector2 getAcceleration() {
+        return acceleration;
+    }
+
+    public void setAcceleration(Vector2 acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
+    }
+
+    public void setBounds(Rectangle bounds) {
+        this.bounds = bounds;
+    }
 }

@@ -10,7 +10,7 @@ blue_ball
   orig: 64, 64
   offset: 0, 0
   index: -1
-white_ball
+player
   rotate: false
   xy: 67, 59
   size: 64, 64

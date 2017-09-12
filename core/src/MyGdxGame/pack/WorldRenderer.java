@@ -52,7 +52,7 @@ public class WorldRenderer implements Disposable {
         //worldController.camera.applyTo(camera);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        worldController.currenteLevel.render(delta);
+        worldController.currenteLevel.render(delta, batch);
         batch.end();
         //b2debugRenderer.render(worldController.b2world, camera.combined);
 

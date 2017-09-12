@@ -5,7 +5,9 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.Disposable;
 import MyGdxGame.pack.UtilsPack.Constants;
 
@@ -15,32 +17,31 @@ import MyGdxGame.pack.UtilsPack.Constants;
 
 public class Assets implements Disposable, AssetErrorListener {
 
-    public static  final String Tag = Assets.class.getName();
-    public  static final  Assets instance = new Assets();
+    public static final String Tag = Assets.class.getName();
+    public static final Assets instance = new Assets();
 
     private AssetManager assetManager;
-    public  AssetFonts fontes;
-    public AssetWhiteBall whiteball;
-    public AssetBlueBall blueball;
-    public AssetBorda borda;
-    public AssetGoldCoin goldCoin;
+    public AssetFonts fontes;
+    public AssetPlayer player;
 
-    private Assets(){};
 
-    public void init(AssetManager assetManager){
+    private Assets() {};
+
+    public void init(AssetManager assetManager) {
         this.assetManager = assetManager;
         assetManager.setErrorListener(this);
         assetManager.load(Constants.TEXTURE_ATLAS_OBJECTS, TextureAtlas.class);
         assetManager.finishLoading();
-        Gdx.app.debug(Tag,"# assets carregados: " + assetManager.getAssetNames().size);
-        for(String a : assetManager.getAssetNames()) {
+        Gdx.app.debug(Tag, "# assets carregados: " + assetManager.getAssetNames().size);
+        for (String a : assetManager.getAssetNames()) {
             Gdx.app.debug(Tag, "asset: " + a);
         }
         TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS_OBJECTS);
-        for (Texture t : atlas.getTextures()){
+        for (Texture t : atlas.getTextures()) {
             t.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         }
         fontes = new AssetFonts();
+        player = new AssetPlayer(atlas);
     }
 
     @Override
@@ -53,41 +54,36 @@ public class Assets implements Disposable, AssetErrorListener {
 
     @Override
     public void error(AssetDescriptor asset, Throwable throwable) {
-        Gdx.app.error(Tag, "Asset nao foi carregada ",(Exception)throwable);
+        Gdx.app.error(Tag, "Asset nao foi carregada ", (Exception) throwable);
     }
 
-    public class AssetWhiteBall{
-        public final TextureAtlas.AtlasRegion whiteball;
+    public class AssetPlayer {
+        public final AtlasRegion player;
 
-        public  AssetWhiteBall (TextureAtlas atlas){
-            whiteball = atlas.findRegion("white_ball");
+        public AssetPlayer(TextureAtlas atlas){
+            player = atlas.findRegion("player");
         }
     }
 
-    public class AssetBlueBall{
-        public final TextureAtlas.AtlasRegion blueball;
+    public class AssetFonts {
+        public final BitmapFont defaultSmall;
+        public final BitmapFont defaultNormal;
+        public final BitmapFont defaultBig;
 
-        public  AssetBlueBall (TextureAtlas atlas){
-            blueball = atlas.findRegion("blue_ball");
+        public AssetFonts () {
+            // create three fonts using Libgdx's 15px bitmap font
+            defaultSmall = new BitmapFont(Gdx.files.internal(Constants.FONT_SOURCE), true);
+            defaultNormal = new BitmapFont(Gdx.files.internal(Constants.FONT_SOURCE), true);
+            defaultBig = new BitmapFont(Gdx.files.internal(Constants.FONT_SOURCE), true);
+            // enable linear texture filtering for smooth fonts
+            defaultSmall.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            //defaultSmall.setScale(Scale.scale(0.75,0.75f).);
+            defaultNormal.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            defaultBig.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
         }
+
     }
 
-    public class AssetBorda{
-        public final TextureAtlas.AtlasRegion corner;
-        public final TextureAtlas.AtlasRegion middle;
-
-        public  AssetBorda(TextureAtlas atlas){
-            corner = atlas.findRegion("borda_corner");
-            middle = atlas.findRegion("borda_middle");
-        }
-    }
-
-    public class AssetGoldCoin{
-        public final TextureAtlas.AtlasRegion goldCoin;
-
-        public  AssetGoldCoin (TextureAtlas atlas){
-            goldCoin = atlas.findRegion("item_gold_coin");
-        }
-    }
 }
 

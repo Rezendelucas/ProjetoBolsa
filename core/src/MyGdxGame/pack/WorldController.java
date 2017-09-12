@@ -61,8 +61,9 @@ public class WorldController extends InputAdapter {
 
     public void update(float delta){
         // handleDebugInput(delta);//Funçao de controle do cena para debuger
-        handleInputGame(delta);
         //b2world.step(delta,8,3);
+        handleInputGame(delta);
+        currenteLevel.update(delta);
         camera.update();
     }
 

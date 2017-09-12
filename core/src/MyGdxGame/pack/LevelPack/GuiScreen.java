@@ -3,12 +3,15 @@ package MyGdxGame.pack.LevelPack;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
 import MyGdxGame.pack.UtilsPack.Constants;
@@ -20,40 +23,54 @@ public class GuiScreen extends ScreenAdapter {
     private Stage stage = new Stage();
     private final List<String> grimoire;
     private final List<String> spell;
+    private final List<String> quests;
     private final Table table;
     private final Skin skin;
     private final Label lblGrimoire;
-    private final Label lblspell;
+    private final Label lblSpell;
+    private final Label lblQuests;
+    private final boolean debug = false;
 
     public GuiScreen(){ //resolver o problema da skin
         skin = new Skin(Gdx.files.internal(Constants.UISKIN));
-        stage.setDebugAll(true);
+        stage.setDebugAll(debug);
         Gdx.input.setInputProcessor(stage);
 
         grimoire = new List<String>(skin);
-        grimoire.setItems("Fireball", "Magic Missile", "Great Shield", "Concentration", "Shadows Step", "God Hammer", "Azure Wrath", "Invisibility", "Touch of Death");
+        grimoire.setItems("Siga em frente","Virar a direita","Virar a Esquerda","Golpe simples","Xablau","Fireball", "Magic Missile", "Great Shield", "Concentration", "Shadows Step", "God Hammer", "Azure Wrath", "Invisibility", "Touch of Death");
         spell = new List<String>(skin);
         spell.setItems("Begin");
+        quests = new List<String>(skin);
+        quests.setItems("nenhuma quest registrada!!!");
 
         table = new Table(skin);
         table.setFillParent(true);
-        table.left();
         stage.addActor(table);
 
         table.defaults();
         lblGrimoire = new Label("Grimorio", skin);
-        lblspell = new Label("Spell",skin);
+        lblSpell = new Label("Spell",skin);
+        lblQuests = new Label("Quests",skin);
+
+        table.add(lblQuests).fill().row();
+        table.add(quests).expand().fill().row();
 
         table.add(lblGrimoire).width(150).left().fill();
-        table.add(lblspell).width(150).right().fill().row();
+        table.add(lblSpell).width(150).right().fill().row();
 
         table.add(grimoire).width(150).left().expand().fill();
-        table.add(spell).width(150).right().expand().fill();
+        table.add(spell).width(150).right().expand().fill().row();
 
-        //TextButton btn = new TextButton("menu", skin);
-        //btn.setPosition(100,100);
-        //stage.addActor(btn);
-        
+
+        TextButton btnStart = new TextButton("START", skin);
+        btnStart.setPosition(440,440);
+        stage.addActor(btnStart);
+
+        TextButton btnLoad = new TextButton("LOAD", skin);
+        btnLoad.setPosition(520,440);
+        stage.addActor(btnLoad);
+
+
         /////////mecanismo de arrastar e soltar/////////
 
 
@@ -126,6 +143,9 @@ public class GuiScreen extends ScreenAdapter {
 
 
     }
+    private void hideMenus() {
+        table.setVisible(false);
+    }
 
     @Override
     public void show() {
@@ -139,7 +159,6 @@ public class GuiScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
     }
