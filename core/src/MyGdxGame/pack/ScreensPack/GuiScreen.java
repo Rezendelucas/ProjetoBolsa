@@ -21,8 +21,8 @@ public class GuiScreen extends ScreenAdapter {
 
 
     private Stage stage = new Stage();
-    private final List<String> grimoire;
-    private final List<String> spell;
+    private final List<Object> grimoire;
+    private final List<Object> spell;
     private final List<String> quests;
     private final Table table;
     private final Skin skin;
@@ -36,9 +36,9 @@ public class GuiScreen extends ScreenAdapter {
         stage.setDebugAll(debug);
         Gdx.input.setInputProcessor(stage);
 
-        grimoire = new List<String>(skin);
+        grimoire = new List<Object>(skin);
         grimoire.setItems("Siga em frente","Virar a direita","Virar a Esquerda","Golpe simples","Xablau","Fireball", "Magic Missile", "Great Shield", "Concentration", "Shadows Step", "God Hammer", "Azure Wrath", "Invisibility", "Touch of Death");
-        spell = new List<String>(skin);
+        spell = new List<Object>(skin);
         spell.setItems("Begin");
         quests = new List<String>(skin);
         quests.setItems("nenhuma quest registrada!!!");
@@ -81,10 +81,10 @@ public class GuiScreen extends ScreenAdapter {
             final DragAndDrop.Payload payload = new DragAndDrop.Payload();  // cria o objeto carga para conter o item arrastado
             @Override
             public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
-                String item = grimoire.getSelected(); // pega o item escolhido do inventario
+                Object item = grimoire.getSelected(); // pega o item escolhido do inventario
                 payload.setObject(item);  //   add no objeto de carga
                 //grimoire.getItems().removeIndex(Grimoire.getSelectedIndex());  // remove o objeto da lista de inventario, isto e desnecessario para nosso projeto
-                payload.setDragActor(new Label(item, skin));
+                payload.setDragActor(new Label((String)item, skin));
                 payload.setInvalidDragActor(new Label(item + " (\"voce nao tem mana suficiente!\")", skin));
                 payload.setValidDragActor(new Label(item + " (\"Adcionar spell\")", skin));
                 return payload;
@@ -116,10 +116,10 @@ public class GuiScreen extends ScreenAdapter {
             final DragAndDrop.Payload payload1 = new DragAndDrop.Payload();  // cria o objeto carga para conter o item arrastado
             @Override
             public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
-                String item = spell.getSelected(); // pega o item escolhido do inventario
+                Object item = spell.getSelected(); // pega o item escolhido do inventario
                 payload1.setObject(item);  //   add no objeto de carga
                 spell.getItems().removeIndex(spell.getSelectedIndex());  // remove o objeto da lista de inventario, isto e desnecessario para nosso projeto
-                payload1.setDragActor(new Label(item, skin));
+                payload1.setDragActor(new Label((String)item, skin));
                 return payload1;
             }
 
