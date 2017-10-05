@@ -7,8 +7,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import MyGdxGame.pack.ModelsPack.AbstractGameObject;
 import MyGdxGame.pack.ModelsPack.Player;
+import MyGdxGame.pack.ScreensPack.GuiScreen;
 
 
 /**
@@ -26,6 +28,9 @@ public class Level extends ScreenAdapter {
     private float sizeY;
     private AbstractGameObject obj;
     private Player player;
+    private GuiScreen gui;
+    private boolean laço = true;
+
 
     public Level(){
         stage = new Stage();
@@ -70,7 +75,17 @@ public class Level extends ScreenAdapter {
         player.render(batch);
     }
     public void update (float deltaTime) {
-        player.update(deltaTime);
+        List<Object> list;
+        if(laço) {
+            try {
+                list = GuiScreen.pullComands();
+                player.comandos(deltaTime,list);
+                laço = false;
+                // player.update(deltaTime);
+            }catch (Exception e){
+                System.out.print("Erro ao capturar lista de comandos \n");
+            }
+        }
     }
 
     @Override

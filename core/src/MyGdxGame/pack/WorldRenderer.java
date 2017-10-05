@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.Disposable;
 
-import MyGdxGame.pack.LevelPack.GuiScreen;
+import MyGdxGame.pack.ScreensPack.GuiScreen;
 import MyGdxGame.pack.ModelsPack.Assets;
 import MyGdxGame.pack.UtilsPack.Constants;
 

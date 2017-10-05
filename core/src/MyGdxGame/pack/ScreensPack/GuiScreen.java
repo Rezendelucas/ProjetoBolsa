@@ -1,10 +1,7 @@
-package MyGdxGame.pack.LevelPack;
+package MyGdxGame.pack.ScreensPack;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -17,29 +14,30 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import MyGdxGame.pack.UtilsPack.Constants;
 
 public class GuiScreen extends ScreenAdapter {
-    private static final String TAG = Level.class.getName();
+    private static final String TAG = GuiScreen.class.getName();
 
-
+    private static final Skin skin =  new Skin(Gdx.files.internal(Constants.UISKIN));
     private Stage stage = new Stage();
     private final List<Object> grimoire;
-    private final List<Object> spell;
+    private static final List<Object> spell = new List<Object>(skin);;
     private final List<String> quests;
     private final Table table;
-    private final Skin skin;
+    //private final Skin skin =  new Skin(Gdx.files.internal(Constants.UISKIN));
     private final Label lblGrimoire;
     private final Label lblSpell;
     private final Label lblQuests;
-    private final boolean debug = false;
+    private static boolean start = true;
+    private  boolean debug = false;
 
     public GuiScreen(){ //resolver o problema da skin
-        skin = new Skin(Gdx.files.internal(Constants.UISKIN));
+        //skin = new Skin(Gdx.files.internal(Constants.UISKIN));
         stage.setDebugAll(debug);
         Gdx.input.setInputProcessor(stage);
 
         grimoire = new List<Object>(skin);
-        grimoire.setItems("Siga em frente","Virar a direita","Virar a Esquerda","Golpe simples","Xablau","Fireball", "Magic Missile", "Great Shield", "Concentration", "Shadows Step", "God Hammer", "Azure Wrath", "Invisibility", "Touch of Death");
-        spell = new List<Object>(skin);
-        spell.setItems("Begin");
+        grimoire.setItems("Siga em frente","Virar a direita","Virar a Esquerda","Golpe simples");
+       // spell = new List<Object>(skin);
+        spell.setItems("Begin","Siga em frente","Virar a direita","Siga em frente","Virar a direita","Siga em frente");
         quests = new List<String>(skin);
         quests.setItems("nenhuma quest registrada!!!");
 
@@ -69,6 +67,11 @@ public class GuiScreen extends ScreenAdapter {
         TextButton btnLoad = new TextButton("LOAD", skin);
         btnLoad.setPosition(520,440);
         stage.addActor(btnLoad);
+
+
+        if(btnStart.isTouchable()){
+            start = true;
+        }
 
 
         /////////mecanismo de arrastar e soltar/////////
@@ -143,9 +146,10 @@ public class GuiScreen extends ScreenAdapter {
 
 
     }
-    private void hideMenus() {
-        table.setVisible(false);
+    public static List<Object> pullComands() {
+        return spell;
     }
+
 
     @Override
     public void show() {
@@ -167,6 +171,8 @@ public class GuiScreen extends ScreenAdapter {
     public void dispose() {
         stage.dispose();
     }
+
+
 }
 
 
