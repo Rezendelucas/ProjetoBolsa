@@ -15,9 +15,9 @@ public class Player extends AbstractGameObject {
 
     public static final String TAG = Player.class.getName();
     private TextureRegion regPlayer;
-    private float movePlayerX = 20;
-    private float movePlayerY = 20;
-    private SpriteBatch drawBatch = new SpriteBatch();;
+    private float movePlayerX = 1;
+    private float movePlayerY = 1;
+    //private SpriteBatch drawBatch = new SpriteBatch();;
 
     public Player() {
         init();
@@ -34,7 +34,7 @@ public class Player extends AbstractGameObject {
         TextureRegion reg = null;
         // Draw image
         reg = regPlayer;
-        drawBatch.begin();
+        //drawBatch.begin();
         batch.draw(reg.getTexture(),
                 getPosition().x , getPosition().y,
                 origin.x, origin.y,
@@ -44,15 +44,14 @@ public class Player extends AbstractGameObject {
                 reg.getRegionX(), reg.getRegionY(),
                 reg.getRegionWidth(), reg.getRegionHeight(),
                 true, false);
-        drawBatch.end();
+        //drawBatch.end();
     }
 
     public void comandos(float delta, com.badlogic.gdx.scenes.scene2d.ui.List list) {
-        list.getItems().add("End");
         for (int i = 0; i < list.getItems().size; i++) {
-            int wait = 10;
+            int wait = 500000;
             while (wait > 0) {
-                if (wait == 10) {
+                if (wait == 500000) {
                     switch (Parse.get(list.getItems().get(i))) {
                         case 1:
                             movimento_Frente();
@@ -88,6 +87,7 @@ public class Player extends AbstractGameObject {
                             break;
                     }
                 } else {
+                    System.out.print("em espera! \n");
                     wait--;
                 }
             }
@@ -107,7 +107,9 @@ public class Player extends AbstractGameObject {
     };
 
     private void movimento_Frente() {
+        //System.out.print("Player em:  " + getPosition().x + "," + getPosition().y + "\n" );
         position.set(getPosition().x + 0,getPosition().y + movePlayerY);
+        //System.out.print("Player movido para:  " + getPosition().x + "," + getPosition().y + "\n" );
         System.out.print("Movimento a frente! \n");
     }
 

@@ -75,6 +75,7 @@ public class Level extends ScreenAdapter {
         player.render(batch);
     }
     public void update (float deltaTime) {
+
         List<Object> list;
         if(laço) {
             try {
@@ -86,6 +87,7 @@ public class Level extends ScreenAdapter {
                 System.out.print("Erro ao capturar lista de comandos \n");
             }
         }
+
     }
 
     @Override
