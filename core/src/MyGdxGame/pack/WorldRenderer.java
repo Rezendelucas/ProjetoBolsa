@@ -44,15 +44,15 @@ public class WorldRenderer implements Disposable {
     }
 
     public void render(float delta){
-        renderWorld(batch, delta);
+        renderWorld(delta);
         renderGui(batch,delta);
     }
 
-    private void renderWorld(SpriteBatch batch, float delta){
+    private void renderWorld(float delta){
         //worldController.camera.applyTo(camera);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        worldController.currenteLevel.render(delta, batch);
+        worldController.currenteLevel.render(batch);
         batch.end();
         //b2debugRenderer.render(worldController.b2world, camera.combined);
 

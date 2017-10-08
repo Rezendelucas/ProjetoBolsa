@@ -47,51 +47,34 @@ public class Player extends AbstractGameObject {
         //drawBatch.end();
     }
 
-    public void comandos(float delta, com.badlogic.gdx.scenes.scene2d.ui.List list) {
-        for (int i = 0; i < list.getItems().size; i++) {
-            int wait = 500000;
-            while (wait > 0) {
-                if (wait == 500000) {
-                    switch (Parse.get(list.getItems().get(i))) {
+    public void comandos(int comando) {
+                    switch (comando) {
                         case 1:
                             movimento_Frente();
                             //render(drawBatch);
-                            wait--;
                             break;
                         case 2:
                             movimento_Direita();
                             //render(drawBatch);
-                            wait--;
                             break;
                         case 3:
                             movimento_Esquerda();
                             //render(drawBatch);
-                            wait--;
                             break;
                         case 4:
                             movimento_Ataque();
                             //render(drawBatch);
-                            wait--;
                             break;
                         case 5:
                             //inicia ciclo
-                            wait--;
                             break;
                         case 6:
                             //final ciclo
-                            wait--;
                             break;
                         default:
                             //nothing
-                            wait--;
                             break;
                     }
-                } else {
-                    System.out.print("em espera! \n");
-                    wait--;
-                }
-            }
-        }
     }
 
 
