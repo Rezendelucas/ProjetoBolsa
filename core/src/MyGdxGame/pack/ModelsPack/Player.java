@@ -85,7 +85,7 @@ public class Player extends AbstractGameObject {
             put("Virar a Esquerda",3);
             put("Golpe simples",4);
             put("Begin",5);
-            put("End",6);
+            put("END",6);
         }
     };
 

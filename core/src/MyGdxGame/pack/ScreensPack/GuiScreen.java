@@ -35,9 +35,9 @@ public class GuiScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
 
         grimoire = new List<Object>(skin);
-        grimoire.setItems("Siga em frente","Virar a direita","Virar a Esquerda","Golpe simples");
+        grimoire.setItems("Siga em frente","Virar a direita","Virar a Esquerda","Golpe simples","END");
        // spell = new List<Object>(skin);
-        spell.setItems("Begin","Siga em frente","Virar a direita","Siga em frente","Virar a direita","Siga em frente");
+        spell.setItems("Begin","Siga em frente","Virar a direita","Siga em frente","Virar a direita","Siga em frente","END");
         quests = new List<String>(skin);
         quests.setItems("nenhuma quest registrada!!!");
 

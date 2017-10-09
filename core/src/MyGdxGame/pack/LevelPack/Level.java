@@ -80,7 +80,8 @@ public class Level extends ScreenAdapter {
         List<Object> list;
             try {
                 list = GuiScreen.pullComands();
-                if(list.getItems().size <= 1){laço = false;}
+                if(list.getItems().get(list.getItems().size-1).equals("END")){laço = true;}
+                else{laço = false;}
                 if(laço) {
                 //for (int i = 0; i < list.getItems().size; i++) {
                     int wait = 50000;
