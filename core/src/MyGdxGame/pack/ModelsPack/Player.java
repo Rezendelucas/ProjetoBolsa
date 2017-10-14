@@ -1,9 +1,8 @@
 package MyGdxGame.pack.ModelsPack;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import java.util.List;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +24,7 @@ public class Player extends AbstractGameObject {
 
     public void init () {
         dimension.set(1, 1);
+        origin.set(dimension.x/2,dimension.y/2);
         regPlayer = Assets.instance.player.player;
         bounds.set(0, 0, dimension.x, dimension.y); //seta caixa de colisao
     }
@@ -54,11 +54,11 @@ public class Player extends AbstractGameObject {
                             //render(drawBatch);
                             break;
                         case 2:
-                            movimento_Direita();
+                            girar_Direita();
                             //render(drawBatch);
                             break;
                         case 3:
-                            movimento_Esquerda();
+                            girar_Esquerda();
                             //render(drawBatch);
                             break;
                         case 4:
@@ -90,20 +90,34 @@ public class Player extends AbstractGameObject {
     };
 
     private void movimento_Frente() {
-        //System.out.print("Player em:  " + getPosition().x + "," + getPosition().y + "\n" );
-        position.set(getPosition().x + 0,getPosition().y + movePlayerY);
-        //System.out.print("Player movido para:  " + getPosition().x + "," + getPosition().y + "\n" );
+        if(rotation == 0) {//direita
+            position.set(getPosition().x + 0, getPosition().y + movePlayerY);
+        }else if(rotation == 90 || rotation == -90) {//cima
+            position.set(getPosition().x + movePlayerX, getPosition().y + 0);
+        }else if(rotation == 270 || rotation == -270) {//esquerda
+            position.set(getPosition().x -  movePlayerY, getPosition().y + 0);
+        }else if(rotation == 180 || rotation == -180) {//baixo
+            position.set(getPosition().x + 0, getPosition().y - movePlayerX);
+        }
         System.out.print("Movimento a frente! \n");
     }
 
-    private void movimento_Direita() {
-        position.set(getPosition().x + movePlayerX,getPosition().y + 0);
-        System.out.print("Movimento a direita! \n");
+    private void girar_Direita() {
+        //position.set(getPosition().x + movePlayerX,getPosition().y + 0);
+        setRotation(rotation-90);
+        if(rotation == -360){
+            setRotation(0);
+        }
+        System.out.print("giro a direita! \n");
     }
 
-    private void movimento_Esquerda() {
-        position.set(getPosition().x - movePlayerX,getPosition().y + 0);
-        System.out.print("Movimento a esquerda! \n");
+    private void girar_Esquerda() {
+        //position.set(getPosition().x - movePlayerX,getPosition().y + 0);
+        setRotation(getRotation()+90);
+        if(rotation == 360){
+            setRotation(0);
+        }
+        System.out.print("giro a esquerda! \n");
     }
 
     private void movimento_Ataque() {
