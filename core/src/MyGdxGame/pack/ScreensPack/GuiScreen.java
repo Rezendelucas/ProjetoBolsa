@@ -2,13 +2,16 @@ package MyGdxGame.pack.ScreensPack;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
 import MyGdxGame.pack.UtilsPack.Constants;
@@ -22,22 +25,22 @@ public class GuiScreen extends ScreenAdapter {
     private static final List<Object> spell = new List<Object>(skin);;
     private final List<String> quests;
     private final Table table;
-    //private final Skin skin =  new Skin(Gdx.files.internal(Constants.UISKIN));
     private final Label lblGrimoire;
     private final Label lblSpell;
     private final Label lblQuests;
-    private static boolean start = true;
+    private final TextButton btnStart;
+    private final TextButton btnLoad;
+    private static boolean start = false;
     private  boolean debug = false;
 
-    public GuiScreen(){ //resolver o problema da skin
-        //skin = new Skin(Gdx.files.internal(Constants.UISKIN));
+    public GuiScreen(){
         stage.setDebugAll(debug);
         Gdx.input.setInputProcessor(stage);
 
         grimoire = new List<Object>(skin);
         grimoire.setItems("Siga em frente","Virar a direita","Virar a Esquerda","Golpe simples","END");
-       // spell = new List<Object>(skin);
-        spell.setItems("Begin","Siga em frente","Virar a direita","Siga em frente","Virar a direita","Siga em frente","END");
+        //spell = new List<Object>(skin);
+        spell.setItems();
         quests = new List<String>(skin);
         quests.setItems("nenhuma quest registrada!!!");
 
@@ -60,18 +63,31 @@ public class GuiScreen extends ScreenAdapter {
         table.add(spell).width(150).right().expand().fill().row();
 
 
-        TextButton btnStart = new TextButton("START", skin);
-        btnStart.setPosition(440,440);
+        btnStart = new TextButton("START", skin);
+        btnStart.setSize(100,50);
+        btnStart.setPosition(680,420);
         stage.addActor(btnStart);
 
-        TextButton btnLoad = new TextButton("LOAD", skin);
-        btnLoad.setPosition(520,440);
+        btnLoad = new TextButton("PAUSE", skin);
+        btnLoad.setSize(100,50);
+        btnLoad.setPosition(680,360);
         stage.addActor(btnLoad);
 
+        btnStart.addListener(new ChangeListener() {
+            @Override
+            public void changed (ChangeEvent event, Actor actor) {
+                start = true;
+                System.out.print("Play \n");
+            }
+        });
 
-        if(btnStart.isTouchable()){
-            start = true;
-        }
+        btnLoad.addListener(new ChangeListener() {
+            @Override
+            public void changed (ChangeEvent event, Actor actor) {
+                start = false;
+                System.out.print("Pause \n");
+            }
+        });
 
 
         /////////mecanismo de arrastar e soltar/////////
@@ -150,6 +166,9 @@ public class GuiScreen extends ScreenAdapter {
         return spell;
     }
 
+    public static boolean isStart(){return start;}
+
+    public static void setStart(){start = false;}
 
     @Override
     public void show() {

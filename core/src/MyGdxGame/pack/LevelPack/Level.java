@@ -12,6 +12,9 @@ import MyGdxGame.pack.ModelsPack.AbstractGameObject;
 import MyGdxGame.pack.ModelsPack.Player;
 import MyGdxGame.pack.ScreensPack.GuiScreen;
 
+import static MyGdxGame.pack.ScreensPack.GuiScreen.isStart;
+import static MyGdxGame.pack.ScreensPack.GuiScreen.setStart;
+
 
 /**
  * Created by LucasRezende on 08/08/2017.
@@ -26,12 +29,10 @@ public class Level extends ScreenAdapter {
     private final Sprite[][] sprites;
     private float sizeX;
     private float sizeY;
+    private int totalComandos = 0;
+    private int comandosRealizados = 0;
     private AbstractGameObject obj;
     private Player player;
-    private GuiScreen gui;
-    private boolean laço = true;
-
-
 
     public Level(){
         stage = new Stage();
@@ -55,7 +56,6 @@ public class Level extends ScreenAdapter {
                 }
             }
         }
-        //stage.addActor();
     }
 
     @Override
@@ -68,7 +68,6 @@ public class Level extends ScreenAdapter {
         stage.getViewport().update(width, height, true);
     }
 
-
     public void render(SpriteBatch batch) {
         //stage.act(delta);
         //stage.draw();
@@ -80,15 +79,15 @@ public class Level extends ScreenAdapter {
         List<Object> list;
             try {
                 list = GuiScreen.pullComands();
-                if(list.getItems().get(list.getItems().size-1).equals("END")){laço = true;}
-                else{laço = false;}
-                if(laço) {
+                totalComandos = list.getItems().size;
+                if(isStart()) {
                 //for (int i = 0; i < list.getItems().size; i++) {
                     int wait = 50000;
                     while (wait > 0) {
                         if (wait == 50000) {
-                            player.comandos(player.Parse.get(list.getItems().get(1)));
-                            list.getItems().removeIndex(1);
+                            player.comandos(player.Parse.get(list.getItems().get(comandosRealizados)));
+                            comandosRealizados++;
+                            //list.getItems().removeIndex(1);
                             wait--;
                             //render(deltaTime,batch);
                         }else{
@@ -96,13 +95,16 @@ public class Level extends ScreenAdapter {
                             wait--;
                         }
                     }
-                    System.out.print("Final de comando \n");
+                    if(comandosRealizados == totalComandos){
+                        setStart();
+                        comandosRealizados = 0;
+                        System.out.print("Final de comando \n");
+                    }
                 }
             }catch (Exception e){
-                System.out.print("Erro ao capturar lista de comandos \n");
+                System.out.print("Erro ao capturar fila de comandos \n");
             }
         }
-
 
     @Override
     public void dispose() {
