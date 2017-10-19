@@ -12,7 +12,7 @@ public class Constants {
     // Leveis
     public  static  final String LEVEL_01 = "";
     // Caminho de recursos graficos
-    public static final String TEXTURE_ATLAS_OBJECTS =  "assets_atlas/GameTexture.pack";
+    public static final String TEXTURE_ATLAS_OBJECTS =  "assets_atlas/Resources_RogueCode.pack";
     public static final String TEXTURE_ATLAS_UI ="assets_atlas_ui/GameUI.pack";
     public static final String SKIN_GAME_UI ="assets_atlas_ui/menu.json";
 

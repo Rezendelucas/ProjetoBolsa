@@ -4,12 +4,17 @@ package MyGdxGame.pack.LevelPack;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
+
+import java.util.ArrayList;
+
 import MyGdxGame.pack.ModelsPack.AbstractGameObject;
+import MyGdxGame.pack.ModelsPack.Ground;
 import MyGdxGame.pack.ModelsPack.Player;
+import MyGdxGame.pack.ModelsPack.Wall;
 import MyGdxGame.pack.ScreensPack.GuiScreen;
 
 import static MyGdxGame.pack.ScreensPack.GuiScreen.isStart;
@@ -25,37 +30,81 @@ public class Level extends ScreenAdapter {
     private static final String TAG = Level.class.getName();
 
     private final Stage stage;
-    private Texture texture;
-    private final Sprite[][] sprites;
+    private int[][] matriz;
+    private java.util.List<Ground> tilesGround;
+    private java.util.List<Wall> tilesWall;
     private float sizeX;
     private float sizeY;
     private int totalComandos = 0;
     private int comandosRealizados = 0;
     private AbstractGameObject obj;
     private Player player;
+    private TextureAtlas atlas;
 
     public Level(){
         stage = new Stage();
-        sprites = new Sprite[10][10];
+        tilesGround = new ArrayList<Ground>();
+        tilesWall = new ArrayList<Wall>();
         sizeX = 1f;
         sizeY = 1f;
-        init();
+        matriz = new int[][]{
+                {5, 1, 1, 1, 1, 1, 1, 1, 1, 6},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 3},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 3},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 3},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 3},
+                {2, 0, 0, 0, 9, 0, 0, 0, 0, 3},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 3},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 3},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 3},
+                {7, 4, 4, 4, 4, 4, 4, 4, 4, 8},
+        };
+        initMap();
     }
 
-    public void init(){
-        texture = new Texture(Gdx.files.internal("tile.jpg"));
-        for (int z = 0; z < 10; z++) {
+    public void initMap() {
+        for (int y = 0; y < 10; y++) {
             for (int x = 0; x < 10; x++) {
-                sprites[x][z] = new Sprite(texture);
-                sprites[x][z].setPosition(x - 5 , z - 7 );
-                sprites[x][z].setSize(sizeX, sizeY);
-                if(x == 0 & z == 0){
-                    obj = new Player();
-                    obj.position.set(x-5,z-7);
-                    player = (Player) obj;
+                switch (matriz[x][y]) {
+                    case 0:
+                        obj = new Ground();
+                        obj.position.set(x - 5 , y - 7);
+                        obj.dimension.set(sizeX,sizeY);
+                        tilesGround.add((Ground) obj);
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        break;
+                    case 7:
+                        break;
+                    case 8:
+                        break;
+                    case 9:
+                        obj = new Ground();
+                        obj.position.set(x - 5 , y - 7);
+                        obj.dimension.set(sizeX,sizeY);
+                        tilesGround.add((Ground) obj);
+                        obj = new Player();
+                        obj.position.set(x-5,y-7);
+                        player = (Player) obj;
+                        break;
+                    default:
+                        //nothing
+                        break;
                 }
+
             }
         }
+
     }
 
     @Override
@@ -69,8 +118,6 @@ public class Level extends ScreenAdapter {
     }
 
     public void render(SpriteBatch batch) {
-        //stage.act(delta);
-        //stage.draw();
         renderMap(batch);
         player.render(batch);
     }
@@ -112,10 +159,8 @@ public class Level extends ScreenAdapter {
     }
 
     public void renderMap(SpriteBatch batch) {
-        for(int z = 0; z < 10; z++) {
-            for(int x = 0; x < 10; x++) {
-                sprites[x][z].draw(batch);
-            }
+         for(Ground m: tilesGround)
+             m.render(batch);
         }
-    }
+
 }

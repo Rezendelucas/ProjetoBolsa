@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Disposable;
 import MyGdxGame.pack.UtilsPack.Constants;
 
@@ -20,9 +21,15 @@ public class Assets implements Disposable, AssetErrorListener {
     public static final String Tag = Assets.class.getName();
     public static final Assets instance = new Assets();
 
+
+
     private AssetManager assetManager;
     public AssetFonts fontes;
-    public AssetPlayer player;
+    public AssetPlayer jogador;
+    public AssetMap ground;
+    public AssetMap wall;
+    public TextureAtlas atlas;
+
 
 
     private Assets() {};
@@ -36,12 +43,15 @@ public class Assets implements Disposable, AssetErrorListener {
         for (String a : assetManager.getAssetNames()) {
             Gdx.app.debug(Tag, "asset: " + a);
         }
-        TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS_OBJECTS);
+        atlas = assetManager.get(Constants.TEXTURE_ATLAS_OBJECTS);
         for (Texture t : atlas.getTextures()) {
-            t.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            //t.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         }
+        ///Começa a carregas as texturas
         fontes = new AssetFonts();
-        player = new AssetPlayer(atlas);
+        jogador = new AssetPlayer(atlas);
+        ground = new  AssetMap(atlas);
+        wall = new AssetMap(atlas);
     }
 
     @Override
@@ -57,11 +67,40 @@ public class Assets implements Disposable, AssetErrorListener {
         Gdx.app.error(Tag, "Asset nao foi carregada ", (Exception) throwable);
     }
 
+    public TextureAtlas getAtlas() {
+        return atlas;
+    }
+
     public class AssetPlayer {
-        public final AtlasRegion player;
+        public final TextureRegion idle_up;
+        public final TextureRegion idle_donw;
+        public final TextureRegion idle_left;
+        public final TextureRegion idle_right;
+
+       // public final AtlasRegion walk;
+       // public final AtlasRegion attack;
+       // public final AtlasRegion die;
 
         public AssetPlayer(TextureAtlas atlas){
-            player = atlas.findRegion("player");
+            idle_up =  new TextureRegion(atlas.findRegion("p_up"),0,0,32,57);
+            idle_donw = new TextureRegion(atlas.findRegion("p_donw"),0,0,32,57);
+            idle_left = new TextureRegion(atlas.findRegion("p_left"),4,0,28,57);
+            idle_right = new TextureRegion(atlas.findRegion("p_right"),4,0,28,57);
+
+
+          //  walk = atlas.findRegion("walk");
+          //  attack = atlas.findRegion("attack");
+          //  die = atlas.findRegion("die");
+        }
+    }
+
+    public class AssetMap {
+        public final TextureRegion ground_rock;
+        public final TextureRegion wall_rock;
+
+        public AssetMap(TextureAtlas atlas) {
+            ground_rock = new TextureRegion(atlas.findRegion("c_ground"),0,0,32,57);
+            wall_rock = new TextureRegion(atlas.findRegion("c_wall"),0,0,32,57);
         }
     }
 
@@ -84,6 +123,7 @@ public class Assets implements Disposable, AssetErrorListener {
         }
 
     }
+
 
 }
 

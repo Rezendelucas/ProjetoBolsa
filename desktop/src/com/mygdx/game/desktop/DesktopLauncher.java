@@ -4,10 +4,10 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.tools.imagepacker.TexturePacker2;
 
-import MyGdxGame.pack.ScreensPack.GameMain;
+import MyGdxGame.pack.GameMain;
 
 public class DesktopLauncher {
-	private static  boolean rebuildAtlas = true;
+	private static  boolean rebuildAtlas = false;
 	private static  boolean drawDebugOutline = false;
 
 	public static void main (String[] arg) {

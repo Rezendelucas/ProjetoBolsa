@@ -29,7 +29,8 @@ public class GuiScreen extends ScreenAdapter {
     private final Label lblSpell;
     private final Label lblQuests;
     private final TextButton btnStart;
-    private final TextButton btnLoad;
+    private final TextButton btnPaused;
+    private final TextButton btnReset;
     private static boolean start = false;
     private  boolean debug = false;
 
@@ -38,7 +39,7 @@ public class GuiScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
 
         grimoire = new List<Object>(skin);
-        grimoire.setItems("Siga em frente","Virar a direita","Virar a Esquerda","Golpe simples","END");
+        grimoire.setItems("Avancar","Virar a Direita","Virar a Esquerda");
         //spell = new List<Object>(skin);
         spell.setItems();
         quests = new List<String>(skin);
@@ -68,10 +69,15 @@ public class GuiScreen extends ScreenAdapter {
         btnStart.setPosition(680,420);
         stage.addActor(btnStart);
 
-        btnLoad = new TextButton("PAUSE", skin);
-        btnLoad.setSize(100,50);
-        btnLoad.setPosition(680,360);
-        stage.addActor(btnLoad);
+        btnPaused = new TextButton("PAUSE", skin);
+        btnPaused.setSize(100,50);
+        btnPaused.setPosition(680,360);
+        stage.addActor(btnPaused);
+
+        btnReset = new TextButton("RESET", skin);
+        btnReset.setSize(100,50);
+        btnReset.setPosition(570,420);
+        stage.addActor(btnReset);
 
         btnStart.addListener(new ChangeListener() {
             @Override
@@ -81,11 +87,20 @@ public class GuiScreen extends ScreenAdapter {
             }
         });
 
-        btnLoad.addListener(new ChangeListener() {
+        btnPaused.addListener(new ChangeListener() {
             @Override
             public void changed (ChangeEvent event, Actor actor) {
                 start = false;
                 System.out.print("Pause \n");
+            }
+        });
+
+        btnReset.addListener(new ChangeListener() {
+            @Override
+            public void changed (ChangeEvent event, Actor actor) {
+                start = false;
+                spell.clearItems();
+                System.out.print("comandos Resetados \n");
             }
         });
 

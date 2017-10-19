@@ -1,4 +1,4 @@
-package MyGdxGame.pack.ScreensPack;
+package MyGdxGame.pack;
 
 /**
  * Created by LucasRezende on 03/08/2017.
@@ -10,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 
 import MyGdxGame.pack.ModelsPack.Assets;
+import MyGdxGame.pack.ScreensPack.MenuScreen;
 
 public class GameMain extends Game {
     private static final java.lang.String Tag = GameMain.class.getName();

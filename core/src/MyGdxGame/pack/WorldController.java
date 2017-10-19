@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import MyGdxGame.pack.LevelPack.Level;
 import MyGdxGame.pack.ScreensPack.MenuScreen;
@@ -19,10 +20,10 @@ public class WorldController extends InputAdapter {
 
     private static final String TAG = WorldController.class.getName();
 
-    public OrthographicCamera camera;
-    public Level currenteLevel;
-    public int score;
-    public Game game;
+    private OrthographicCamera camera;
+    private Level currenteLevel;
+    private int score;
+    private Game game;
 
 
     public WorldController(Game game){
@@ -65,7 +66,12 @@ public class WorldController extends InputAdapter {
         return false;
     }
 
+    public Level getCurrenteLevel() {
+        return currenteLevel;
+    }
 
-
+    public int getScore() {
+        return score;
+    }
 }
 

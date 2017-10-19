@@ -13,37 +13,38 @@ import java.util.Map;
 public class Player extends AbstractGameObject {
 
     public static final String TAG = Player.class.getName();
-    private TextureRegion regPlayer;
+    private TextureRegion regTexture;
     private float movePlayerX = 1;
     private float movePlayerY = 1;
-    //private SpriteBatch drawBatch = new SpriteBatch();;
+
 
     public Player() {
         init();
     }
 
     public void init () {
-        dimension.set(1, 1);
+        dimension.set(1, 2);
         origin.set(dimension.x/2,dimension.y/2);
-        regPlayer = Assets.instance.player.player;
+        rotation = 0;
         bounds.set(0, 0, dimension.x, dimension.y); //seta caixa de colisao
+        regTexture = Assets.instance.jogador.idle_right;
     }
 
     @Override
     public void render(SpriteBatch batch) {
         TextureRegion reg = null;
         // Draw image
-        reg = regPlayer;
+        reg = regTexture;
         //drawBatch.begin();
         batch.draw(reg.getTexture(),
                 getPosition().x , getPosition().y,
                 origin.x, origin.y,
                 dimension.x, dimension.y,
                 scale.x, scale.y,
-                rotation,
+                0/*rotation*/ ,
                 reg.getRegionX(), reg.getRegionY(),
                 reg.getRegionWidth(), reg.getRegionHeight(),
-                true, false);
+                false, false);
         //drawBatch.end();
     }
 
@@ -80,8 +81,8 @@ public class Player extends AbstractGameObject {
 
     public Map<String , Integer> Parse = new HashMap<String , Integer>(){
         {
-            put("Siga em frente",1);
-            put("Virar a direita",2);
+            put("Avancar",1);
+            put("Virar a Direita",2);
             put("Virar a Esquerda",3);
             put("Golpe simples",4);
             put("Begin",5);
@@ -91,12 +92,12 @@ public class Player extends AbstractGameObject {
 
     private void movimento_Frente() {
         if(rotation == 0) {//direita
+            position.set(getPosition().x + movePlayerX, getPosition().y +0);
+        }else if(rotation == 90 || rotation == -270) {//cima
             position.set(getPosition().x + 0, getPosition().y + movePlayerY);
-        }else if(rotation == 90 || rotation == -90) {//cima
-            position.set(getPosition().x + movePlayerX, getPosition().y + 0);
-        }else if(rotation == 270 || rotation == -270) {//esquerda
+        }else if(rotation == 180 || rotation == -180) {//esquerda
             position.set(getPosition().x -  movePlayerY, getPosition().y + 0);
-        }else if(rotation == 180 || rotation == -180) {//baixo
+        }else if(rotation == -90 || rotation == 270) {//baixo
             position.set(getPosition().x + 0, getPosition().y - movePlayerX);
         }
         System.out.print("Movimento a frente! \n");
@@ -108,8 +109,11 @@ public class Player extends AbstractGameObject {
         if(rotation == -360){
             setRotation(0);
         }
+        jogadorSetTexture();
         System.out.print("giro a direita! \n");
     }
+
+
 
     private void girar_Esquerda() {
         //position.set(getPosition().x - movePlayerX,getPosition().y + 0);
@@ -117,11 +121,26 @@ public class Player extends AbstractGameObject {
         if(rotation == 360){
             setRotation(0);
         }
+        jogadorSetTexture();
         System.out.print("giro a esquerda! \n");
     }
 
     private void movimento_Ataque() {
         System.out.print("Ataque efetuado \n!");
     }
+
+    private void jogadorSetTexture() {
+        if(rotation == 0)
+             regTexture = Assets.instance.jogador.idle_right;
+        else if(rotation == 90 || rotation == -270)
+                regTexture = Assets.instance.jogador.idle_up;
+        else if(rotation == -90 || rotation == 270)
+                regTexture = Assets.instance.jogador.idle_donw;
+        else if(rotation == 180 || rotation == -180)
+            regTexture = Assets.instance.jogador.idle_left;
+    }
+
+
+
 
 }

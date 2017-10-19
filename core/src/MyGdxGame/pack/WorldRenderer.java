@@ -52,7 +52,7 @@ public class WorldRenderer implements Disposable {
         //worldController.camera.applyTo(camera);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        worldController.currenteLevel.render(batch);
+        worldController.getCurrenteLevel().render(batch);
         batch.end();
         //b2debugRenderer.render(worldController.b2world, camera.combined);
 
@@ -80,7 +80,7 @@ public class WorldRenderer implements Disposable {
         float x = -15;
         float y = -15;
         //batch.draw();
-        Assets.instance.fontes.defaultBig.draw(batch,"" + worldController.score,x+75,y+37);
+        Assets.instance.fontes.defaultBig.draw(batch,"" + worldController.getScore(),x+75,y+37);
     }
 
     private void renderGuiFpsCounter (SpriteBatch batch) {
@@ -103,4 +103,6 @@ public class WorldRenderer implements Disposable {
     public void dispose() {
         batch.dispose();
     }
+
+
 }
