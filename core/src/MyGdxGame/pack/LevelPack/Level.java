@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.List;
 import java.util.ArrayList;
 
 import MyGdxGame.pack.ModelsPack.AbstractGameObject;
+import MyGdxGame.pack.ModelsPack.Assets;
 import MyGdxGame.pack.ModelsPack.Ground;
 import MyGdxGame.pack.ModelsPack.Player;
 import MyGdxGame.pack.ModelsPack.Wall;
@@ -49,11 +50,11 @@ public class Level extends ScreenAdapter {
         sizeY = 1f;
         matriz = new int[][]{
                 {5, 1, 1, 1, 1, 1, 1, 1, 1, 6},
+                {2, 9, 0, 0, 0, 0, 0, 0, 0, 3},
                 {2, 0, 0, 0, 0, 0, 0, 0, 0, 3},
                 {2, 0, 0, 0, 0, 0, 0, 0, 0, 3},
                 {2, 0, 0, 0, 0, 0, 0, 0, 0, 3},
                 {2, 0, 0, 0, 0, 0, 0, 0, 0, 3},
-                {2, 0, 0, 0, 9, 0, 0, 0, 0, 3},
                 {2, 0, 0, 0, 0, 0, 0, 0, 0, 3},
                 {2, 0, 0, 0, 0, 0, 0, 0, 0, 3},
                 {2, 0, 0, 0, 0, 0, 0, 0, 0, 3},
@@ -63,33 +64,99 @@ public class Level extends ScreenAdapter {
     }
 
     public void initMap() {
-        for (int y = 0; y < 10; y++) {
-            for (int x = 0; x < 10; x++) {
+        for (int x = 0; x < 10; x++) {
+            for (int y = 0; y < 10; y++) {
                 switch (matriz[x][y]) {
                     case 0:
-                        obj = new Ground();
+                        obj = new Ground(Assets.instance.ground.ground_rock);
                         obj.position.set(x - 5 , y - 7);
                         obj.dimension.set(sizeX,sizeY);
                         tilesGround.add((Ground) obj);
                         break;
                     case 1:
+                        obj = new Ground(Assets.instance.ground.tile_ground_rock);
+                        obj.position.set(x - 5 , y - 7);
+                        obj.dimension.set(sizeX,sizeY);
+                        tilesGround.add((Ground) obj);
+                        obj = new Wall(Assets.instance.wall.side_wall_rock);
+                        obj.position.set(x - 5 , y - 7);
+                        obj.dimension.set(sizeX,sizeY);
+                        tilesWall.add((Wall) obj);
                         break;
                     case 2:
+                        obj = new Ground(Assets.instance.ground.tile_ground_rock);
+                        obj.position.set(x - 5 , y - 7);
+                        obj.dimension.set(sizeX,sizeY);
+                        tilesGround.add((Ground) obj);
+                        obj = new Wall(Assets.instance.wall.side_wall_rock);
+                        obj.position.set(x - 5 , y - 7);
+                        obj.dimension.set(sizeX,sizeY);
+                        obj.rotation = 90;
+                        tilesWall.add((Wall) obj);
                         break;
                     case 3:
+                        obj = new Ground(Assets.instance.ground.tile_ground_rock);
+                        obj.position.set(x - 5 , y - 7);
+                        obj.dimension.set(sizeX,sizeY);
+                        tilesGround.add((Ground) obj);
+                        obj = new Wall(Assets.instance.wall.up_wall_rock);
+                        obj.position.set(x - 5 , y - 7);
+                        obj.dimension.set(sizeX,sizeY);
+                        tilesWall.add((Wall) obj);
                         break;
                     case 4:
+                        obj = new Ground(Assets.instance.ground.tile_ground_rock);
+                        obj.position.set(x - 5 , y - 7);
+                        obj.dimension.set(sizeX,sizeY);
+                        tilesGround.add((Ground) obj);
+                        obj = new Wall(Assets.instance.wall.side_wall_rock);
+                        obj.position.set(x - 5 , y - 7);
+                        obj.dimension.set(sizeX,sizeY);
+                        obj.rotation = 180;
+                        tilesWall.add((Wall) obj);
                         break;
                     case 5:
+                        obj = new Ground(Assets.instance.ground.tile_ground_rock);
+                        obj.position.set(x - 5 , y - 7);
+                        obj.dimension.set(sizeX,sizeY);
+                        tilesGround.add((Ground) obj);
+                        obj = new Wall(Assets.instance.wall.cornerLB_wall_rock);
+                        obj.position.set(x - 5 , y - 7);
+                        obj.dimension.set(sizeX,sizeY);
+                        tilesWall.add((Wall) obj);
                         break;
                     case 6:
+                        obj = new Ground(Assets.instance.ground.tile_ground_rock);
+                        obj.position.set(x - 5 , y - 7);
+                        obj.dimension.set(sizeX,sizeY);
+                        tilesGround.add((Ground) obj);
+                        obj = new Wall(Assets.instance.wall.cornerLT_wall_rock);
+                        obj.position.set(x - 5 , y - 7);
+                        obj.dimension.set(sizeX,sizeY);
+                        tilesWall.add((Wall) obj);
                         break;
                     case 7:
+                        obj = new Ground(Assets.instance.ground.tile_ground_rock);
+                        obj.position.set(x - 5 , y - 7);
+                        obj.dimension.set(sizeX,sizeY);
+                        tilesGround.add((Ground) obj);
+                        obj = new Wall(Assets.instance.wall.cornerRB_wall_rock);
+                        obj.position.set(x - 5 , y - 7);
+                        obj.dimension.set(sizeX,sizeY);
+                        tilesWall.add((Wall) obj);
                         break;
                     case 8:
+                        obj = new Ground(Assets.instance.ground.tile_ground_rock);
+                        obj.position.set(x - 5 , y - 7);
+                        obj.dimension.set(sizeX,sizeY);
+                        tilesGround.add((Ground) obj);
+                        obj = new Wall(Assets.instance.wall.cornerRT_wall_rock);
+                        obj.position.set(x - 5 , y - 7);
+                        obj.dimension.set(sizeX,sizeY);
+                        tilesWall.add((Wall) obj);
                         break;
                     case 9:
-                        obj = new Ground();
+                        obj = new Ground(Assets.instance.ground.ground_rock);
                         obj.position.set(x - 5 , y - 7);
                         obj.dimension.set(sizeX,sizeY);
                         tilesGround.add((Ground) obj);
@@ -115,11 +182,6 @@ public class Level extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
-    }
-
-    public void render(SpriteBatch batch) {
-        renderMap(batch);
-        player.render(batch);
     }
 
     public void update (float deltaTime) {
@@ -153,14 +215,20 @@ public class Level extends ScreenAdapter {
             }
         }
 
+    public void render(SpriteBatch batch) {
+        renderMap(batch);
+        player.render(batch);
+    }
+
+    public void renderMap(SpriteBatch batch) {
+        for(Ground m: tilesGround)
+            m.render(batch);
+        for(Wall w: tilesWall)
+            w.render(batch);
+        }
+
     @Override
     public void dispose() {
         stage.dispose();
     }
-
-    public void renderMap(SpriteBatch batch) {
-         for(Ground m: tilesGround)
-             m.render(batch);
-        }
-
 }

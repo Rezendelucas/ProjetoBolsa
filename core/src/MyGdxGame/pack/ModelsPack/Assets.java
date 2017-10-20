@@ -96,11 +96,26 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetMap {
         public final TextureRegion ground_rock;
-        public final TextureRegion wall_rock;
+        public final TextureRegion tile_ground_rock;
+        public final TextureRegion up_wall_rock;
+        public final TextureRegion side_wall_rock;
+        public final TextureRegion cornerLB_wall_rock;
+        public final TextureRegion cornerLT_wall_rock;
+        public final TextureRegion cornerRB_wall_rock;
+        public final TextureRegion cornerRT_wall_rock;
+
+
 
         public AssetMap(TextureAtlas atlas) {
-            ground_rock = new TextureRegion(atlas.findRegion("c_ground"),0,0,32,57);
-            wall_rock = new TextureRegion(atlas.findRegion("c_wall"),0,0,32,57);
+            ground_rock = new TextureRegion(atlas.findRegion("c_ground"),3,1,34,32);
+            tile_ground_rock = new TextureRegion(atlas.findRegion("c_ground"),30,35,30,30);
+            up_wall_rock = new TextureRegion(atlas.findRegion("cement"),20,0,16,20);
+            side_wall_rock = new TextureRegion(atlas.findRegion("cement"),0,40,34,10);
+            cornerLB_wall_rock = new TextureRegion(atlas.findRegion("cement"),0,44,34,20);
+            cornerLT_wall_rock = new TextureRegion(atlas.findRegion("cement"),0,0,33,20);
+            cornerRB_wall_rock = new TextureRegion(atlas.findRegion("cement"),38,44,32,20);
+            cornerRT_wall_rock = new TextureRegion(atlas.findRegion("cement"),38,0,32,20);
+
         }
     }
 

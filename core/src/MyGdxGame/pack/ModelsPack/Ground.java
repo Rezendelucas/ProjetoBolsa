@@ -13,16 +13,16 @@ public class Ground extends AbstractGameObject {
     private TextureRegion regTexture;
 
 
-    public Ground() {
-        init();
+    public Ground(TextureRegion texture) {
+        init(texture);
     }
 
-    public void init () {
+    public void init (TextureRegion texture) {
         dimension.set(1, 1);
         origin.set(dimension.x/2,dimension.y/2);
         rotation = 0;
         bounds.set(0, 0, dimension.x, dimension.y); //seta caixa de colisao
-        regTexture = Assets.instance.ground.ground_rock;
+        regTexture = texture;
     }
 
     @Override
